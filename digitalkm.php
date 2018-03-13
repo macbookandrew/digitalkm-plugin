@@ -79,3 +79,25 @@ function format_date_range( $begin_date, $end_date = NULL ) {
 
 	return $formatted_date;
 }
+
+/**
+ * Get query parameter for date range
+ * @param  string $begin_date Ymd-formatted begin date
+ * @param  string $end_date   Ymd-formatted end date
+ * @return string date range query parameter
+ */
+function get_timeline_range_query( $begin_date, $end_date = NULL ) {
+	$begin = new DateTime();
+	$begin->setDate( substr( $begin_date, 0, 4 ), substr( $begin_date, 4, 2 ), substr( $begin_date, 6, 2 ) );
+	$query_string = 'begindate=' . $begin->format( 'Y-m-d' );
+
+	// end date
+	if ( ! is_null( $end_date ) && ! empty( $end_date ) ) {
+		$end = new DateTime();
+		$end->setDate( substr( $end_date, 0, 4 ), substr( $end_date, 4, 2 ), substr( $end_date, 6, 2 ) );
+
+		$query_string .= '&enddate=' . $end->format( 'Y-m-d' );
+	}
+
+	return $query_string;
+}
