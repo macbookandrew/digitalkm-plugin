@@ -7,7 +7,7 @@
  * Author URI:      https://andrewrminion.com
  * Text Domain:     digitalkm
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.0
  *
  * @package         Digitalkm
  */
@@ -16,88 +16,87 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Add custom post type
- */
-require( plugin_dir_path( __FILE__ ) . '/post-types/artifact.php' );
-require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_country.php' );
-require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_state.php' );
-require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_county.php' );
-require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_city.php' );
-require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_subject.php' );
+define( 'DKM_PLUGIN_FILE', __FILE__ );
+define( 'DKM_PLUGIN_DIR', dirname( __FILE__ ) );
+define( 'DKM_PLUGIN_DIR_URL', plugin_dir_url( DKM_PLUGIN_FILE ) );
 
-/**
- * Set ACF local JSON save directory
- * @param  string $path ACF local JSON save directory
- * @return string ACF local JSON save directory
- */
-if ( ! function_exists( 'dkm_acf_json_save_point' ) ) {
-function dkm_acf_json_save_point( $path ) {
-	return plugin_dir_path( __FILE__ ) . '/acf-json';
-}
-}
-add_filter( 'acf/settings/save_json', 'dkm_acf_json_save_point' );
+class DKM_Plugin {
 
-/**
- * Set ACF local JSON open directory
- * @param  array $path ACF local JSON open directory
- * @return array ACF local JSON open directory
- */
-if ( ! function_exists( 'dkm_acf_json_load_point' ) ) {
-function dkm_acf_json_load_point( $path ) {
-	$paths[] = plugin_dir_path( __FILE__ ) . '/acf-json';
-	return $paths;
-}
-}
-add_filter( 'acf/settings/load_json', 'dkm_acf_json_load_point' );
+	/*
+	 * Plugin version
+	 *
+	 * @var string
+	 */
+	public $version = '1.0.0';
 
-/**
- * Format date range
- * @param  string $begin_date Ymd-formatted begin date
- * @param  string $end_date   Ymd-formatted end date
- * @return string human-formatted date range
- */
-function format_date_range( $begin_date, $end_date = NULL ) {
-	$begin = new DateTime();
-	$begin->setDate( substr( $begin_date, 0, 4 ), substr( $begin_date, 4, 2 ), substr( $begin_date, 6, 2 ) );
-	$formatted_date = $begin->format( 'F j, Y' );
-
-	// end date
-	if ( ! is_null( $end_date ) && ! empty( $end_date ) ) {
-		$end = new DateTime();
-		$end->setDate( substr( $end_date, 0, 4 ), substr( $end_date, 4, 2 ), substr( $end_date, 6, 2 ) );
-
-		// format is based on distance between dates
-		if ( $begin->format( 'Y' ) !== $end->format( 'Y' ) ) {
-			$formatted_date .= '&ndash;' . $end->format( 'F j, Y' );
-		} elseif ( $begin->format( 'm' ) !== $end->format( 'm' ) ) {
-			$formatted_date = $begin->format( 'F j' ) . '&ndash;' . $end->format( 'F j, Y' );
-		} elseif ( $begin->format( 'd' ) !== $end->format( 'd' ) ) {
-			$formatted_date = $begin->format ( 'F j' ) . '&ndash;' . $end->format( 'j, Y' );
+	/**
+	 * Main instance
+	 * @return main instance
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
 		}
+		return self::$_instance;
 	}
 
-	return $formatted_date;
-}
+	/**
+	 * Main constructor
+	 * @private
+	 */
+	public function __construct() {
+		$this->includes();
 
-/**
- * Get query parameter for date range
- * @param  string $begin_date Ymd-formatted begin date
- * @param  string $end_date   Ymd-formatted end date
- * @return string date range query parameter
- */
-function get_timeline_range_query( $begin_date, $end_date = NULL ) {
-	$begin = new DateTime();
-	$begin->setDate( substr( $begin_date, 0, 4 ), substr( $begin_date, 4, 2 ), substr( $begin_date, 6, 2 ) );
-	$query_string = 'begindate=' . $begin->format( 'Y-m-d' );
+		/** Frontend assets */
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
 
-	// end date
-	if ( ! is_null( $end_date ) && ! empty( $end_date ) ) {
-		$end = new DateTime();
-		$end->setDate( substr( $end_date, 0, 4 ), substr( $end_date, 4, 2 ), substr( $end_date, 6, 2 ) );
+		/** ACF JSON save points */
+		add_filter( 'acf/settings/save_json', array( $this, 'acf_json_save_point' ) );
+		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
 
-		$query_string .= '&enddate=' . $end->format( 'Y-m-d' );
+		/** Content filters */
+		add_filter( 'the_content', array( new DKM_Content(), 'artifact_metadata' ), 5 );
 	}
 
-	return $query_string;
+	/**
+	 * Add custom post type and taxonomies
+	 */
+	public function includes() {
+		require( DKM_PLUGIN_DIR . '/post-types/artifact.php' );
+		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_country.php' );
+		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_state.php' );
+		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_county.php' );
+		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_city.php' );
+		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_subject.php' );
+
+		require( DKM_PLUGIN_DIR . '/inc/helpers.php' );
+	}
+
+	/**
+	 * Register frontend assets
+	 */
+	public function register_assets() {
+	}
+
+	/**
+	 * Set ACF local JSON save directory
+	 * @param  string $path ACF local JSON save directory
+	 * @return string ACF local JSON save directory
+	 */
+	private function acf_json_save_point( $path ) {
+		return plugin_dir_path( __FILE__ ) . '/acf-json';
+	}
+
+
+	/**
+	 * Set ACF local JSON open directory
+	 * @param  array $path ACF local JSON open directory
+	 * @return array ACF local JSON open directory
+	 */
+	private function acf_json_load_point( $path ) {
+		$paths[] = plugin_dir_path( __FILE__ ) . '/acf-json';
+		return $paths;
+	}
 }
+
+$DKM = new DKM_Plugin();
