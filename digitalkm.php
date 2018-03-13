@@ -69,6 +69,8 @@ class DKM_Plugin {
 		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_city.php' );
 		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_subject.php' );
 
+		require( DKM_PLUGIN_DIR . '/inc/content.php' );
+
 		require( DKM_PLUGIN_DIR . '/inc/helpers.php' );
 	}
 
