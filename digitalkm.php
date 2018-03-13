@@ -85,7 +85,7 @@ class DKM_Plugin {
 	 * @param  string $path ACF local JSON save directory
 	 * @return string ACF local JSON save directory
 	 */
-	private function acf_json_save_point( $path ) {
+	public function acf_json_save_point( $path ) {
 		return plugin_dir_path( __FILE__ ) . '/acf-json';
 	}
 
@@ -95,7 +95,7 @@ class DKM_Plugin {
 	 * @param  array $path ACF local JSON open directory
 	 * @return array ACF local JSON open directory
 	 */
-	private function acf_json_load_point( $path ) {
+	public function acf_json_load_point( $path ) {
 		$paths[] = plugin_dir_path( __FILE__ ) . '/acf-json';
 		return $paths;
 	}
