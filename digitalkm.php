@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom post type
  */
 require( plugin_dir_path( __FILE__ ) . '/post-types/artifact.php' );
+require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_country.php' );
+require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_state.php' );
+require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_county.php' );
+require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_city.php' );
+require( plugin_dir_path( __FILE__ ) . '/taxonomies/artifact_subject.php' );
 
 /**
  * Set ACF local JSON save directory

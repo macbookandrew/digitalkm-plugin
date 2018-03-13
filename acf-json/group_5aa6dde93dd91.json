@@ -3,11 +3,11 @@
     "title": "Item Metadata",
     "fields": [
         {
-            "key": "field_5aa6ddfacbbb3",
-            "label": "Item Date",
-            "name": "item_date",
-            "type": "date_picker",
-            "instructions": "",
+            "key": "field_5aa8209620254",
+            "label": "Images",
+            "name": "images",
+            "type": "repeater",
+            "instructions": "Add as many rows as necessary. When adding image(s), don’t forget to add alt text for accessibility.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,8 +15,105 @@
                 "class": "",
                 "id": ""
             },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5aa820d520255",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_5aa820fa20256",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 0,
+                    "delay": 0
+                }
+            ]
+        },
+        {
+            "key": "field_5aa81bc61b81e",
+            "label": "Link to Full Resource",
+            "name": "link_to_full_resource",
+            "type": "url",
+            "instructions": "Link to full resource on NCDigital or other site",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https:\/\/…"
+        },
+        {
+            "key": "field_5aa6ddfacbbb3",
+            "label": "Item Begin Date",
+            "name": "item_begin_date",
+            "type": "date_picker",
+            "instructions": "Begin date. If specific date unknown, enter the first day of the correct month and\/or year.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
             "display_format": "m\/d\/Y",
-            "return_format": "m\/d\/Y",
+            "return_format": "Ymd",
+            "first_day": 0
+        },
+        {
+            "key": "field_5aa82a625cc25",
+            "label": "Item End Date",
+            "name": "item_end_date",
+            "type": "date_picker",
+            "instructions": "Optional end date",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m\/d\/Y",
+            "return_format": "Ymd",
             "first_day": 0
         },
         {
@@ -70,10 +167,11 @@
             },
             "choices": {
                 "old": "Before",
-                "new": "After"
+                "new": "After",
+                "na": "N\/A"
             },
-            "allow_null": 0,
-            "default_value": "",
+            "allow_null": 1,
+            "default_value": "na",
             "layout": "vertical",
             "return_format": "value"
         },
@@ -81,8 +179,8 @@
             "key": "field_5aa6df75cbbb9",
             "label": "City",
             "name": "city",
-            "type": "text",
-            "instructions": "",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -90,18 +188,21 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Kings Mountain",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "artifact_city",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
         },
         {
             "key": "field_5aa6df84cbbba",
             "label": "County",
             "name": "county",
-            "type": "text",
-            "instructions": "",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -109,18 +210,21 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Cleveland",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "artifact_county",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
         },
         {
             "key": "field_5aa6df93cbbbb",
             "label": "State",
             "name": "state",
-            "type": "text",
-            "instructions": "",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -128,30 +232,36 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "North Carolina",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "artifact_state",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
         },
         {
             "key": "field_5aa6df9ecbbbc",
             "label": "Country",
             "name": "country",
-            "type": "text",
-            "instructions": "",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
-            "default_value": "United States",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "artifact_country",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
         },
         {
             "key": "field_5aa6de6ccbbb5",
@@ -189,13 +299,76 @@
             "endpoint": 1
         },
         {
-            "key": "field_5aa6dfbecbbbe",
+            "key": "field_5aa81e31bd72a",
+            "label": "Subject",
+            "name": "subject",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "artifact_subject",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
+        },
+        {
+            "key": "field_5aa81aff09fb7",
             "label": "Rights Statement",
             "name": "rights_statement",
-            "type": "wysiwyg",
+            "type": "button_group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "http:\/\/rightsstatements.org\/page\/InC\/1.0\/?language=en": "In Copyright",
+                "http:\/\/rightsstatements.org\/page\/InC-OW-EU\/1.0\/?language=en": "In Copyright - EU Orphan Work",
+                "http:\/\/rightsstatements.org\/page\/InC-EDU\/1.0\/?language=en": "In Copyright - Educational Use Permitted",
+                "http:\/\/rightsstatements.org\/page\/InC-NC\/1.0\/?language=en": "In Copyright - Non-Commercial Use Permitted",
+                "http:\/\/rightsstatements.org\/page\/InC-RUU\/1.0\/?language=en": "In Copyright - Rights-holder(s) Unlocatable or Unidentifiable",
+                "http:\/\/rightsstatements.org\/page\/NoC-CR\/1.0\/?language=en": "No Copyright - Contractual Restrictions",
+                "http:\/\/rightsstatements.org\/page\/NoC-NC\/1.0\/?language=en": "No Copyright - Non-Commercial Use Only",
+                "http:\/\/rightsstatements.org\/page\/NoC-OKLR\/1.0\/?language=en": "No Copyright - Other Known Legal Restrictions",
+                "http:\/\/rightsstatements.org\/page\/NoC-US\/1.0\/?language=en": "No Copyright - United States",
+                "http:\/\/rightsstatements.org\/page\/CNE\/1.0\/?language=en": "Copyright Not Evaluated",
+                "http:\/\/rightsstatements.org\/page\/UND\/1.0\/?language=en": "Copyright Undetermined",
+                "http:\/\/rightsstatements.org\/page\/NKC\/1.0\/?language=en": "No Known Copyright",
+                "other": "Other"
+            },
+            "allow_null": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "array"
+        },
+        {
+            "key": "field_5aa6dfbecbbbe",
+            "label": "Rights Statement (Other)",
+            "name": "rights_statement_other",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5aa81aff09fb7",
+                        "operator": "==",
+                        "value": "other"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -237,12 +410,17 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "acf_after_title",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": "",
+    "hide_on_screen": [
+        "custom_fields",
+        "featured_image",
+        "categories",
+        "tags"
+    ],
     "active": 1,
     "description": "",
-    "modified": 1520886422
+    "modified": 1520970563
 }

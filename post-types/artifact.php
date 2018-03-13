@@ -41,7 +41,7 @@ function artifact_init() {
 		'rewrite'               => true,
 		'query_var'             => true,
 		'menu_icon'             => 'dashicons-book-alt',
-		'taxonomies'			=> array( 'category', 'post_tag', ),
+		'taxonomies'			=> array( 'category', 'post_tag', 'artifact_country', 'artifact_state', 'artifact_county', 'artifact_city', 'artifact_subject', ),
 		'show_in_rest'          => true,
 		'rest_base'             => 'artifact',
 		'rest_controller_class' => 'WP_REST_Posts_Controller',
