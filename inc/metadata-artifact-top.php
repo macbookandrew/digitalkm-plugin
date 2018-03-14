@@ -68,11 +68,13 @@ if ( $street_address || $cities || $counties || $states || $countries || $coordi
 		}
 
 		if ( $coordinates ) {
-			echo '<div id="coordinates-map-' . get_the_ID() . '" class="google-map"></div>';
-			wp_add_inline_script( 'coordinates-map', 'var mapCoordinates' . get_the_ID() . ' = ' . json_encode( $coordinates ), 'before' );
+			$coordinates['precision'] = get_field( 'coordinates_precision' );
+			$coordinates['radius'] = get_field( 'coordinates_precision_radius' );
+
+			echo '<div id="coordinatesMap' . get_the_ID() . '" class="coordinates-map" data-locationInfo=\'' . json_encode( $coordinates ) . '\'></div>';
+
+			wp_enqueue_style( 'leaflet' );
 			wp_enqueue_script( 'coordinates-map' );
-			# TODO: add coordinates map
-			# TODO: add options page and Google Maps API key
 		}
 	echo '</section>';
 }

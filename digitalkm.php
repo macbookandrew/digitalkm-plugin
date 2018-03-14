@@ -79,7 +79,11 @@ class DKM_Plugin {
 	 * Register frontend assets
 	 */
 	public function register_assets() {
+		/** Leaflet */
+		wp_register_style( 'leaflet', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' );
+		wp_register_script( 'leaflet', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js' );
 
+		wp_register_script( 'coordinates-map', DKM_PLUGIN_DIR_URL . 'assets/js/coordinates-map.min.js', array( 'leaflet' ), $this->version, true );
 	}
 }
 
