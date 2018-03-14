@@ -44,6 +44,22 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		postcss: {
+			options: {
+				map: {
+					inline: false,
+					annotation: 'assets/css/',
+				},
+
+				processors: [
+					require('cssnano')() // minify the result
+				]
+			},
+			dist: {
+				src: 'assets/css/*.css',
+			}
+		},
+
 		uglify: {
 			options: {
 				sourceMap: true
@@ -51,6 +67,7 @@ module.exports = function( grunt ) {
 			custom: {
 				files: {
 					'assets/js/coordinates-map.min.js': ['src/js/coordinates-map.js'],
+					'assets/js/leaflet.min.js': ['src/js/leaflet-src.js'],
 				},
 			},
 		},
@@ -59,6 +76,10 @@ module.exports = function( grunt ) {
 			javascript: {
 				files: ['src/js/*.js'],
 				tasks: ['uglify'],
+			},
+			styles: {
+				files: ['src/css/*.css'],
+				tasks: ['postcss'],
 			},
 			readme: {
 				files: ['readme.txt'],
@@ -87,6 +108,7 @@ module.exports = function( grunt ) {
 
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-postcss' );
 	grunt.loadNpmTasks( 'grunt-browser-sync' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );

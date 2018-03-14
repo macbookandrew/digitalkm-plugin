@@ -1,2 +1,10 @@
 assets/js/coordinates-map.min.js:src/js/coordinates-map.js
 assets/js/coordinates-map.min.js.map:src/js/coordinates-map.js
+
+assets/js/leaflet.min.js:src/js/leaflet-src.js
+assets/js/leaflet.min.js.map:src/js/leaflet-src.js
+
+assets/css/leaflet.min.css:src/css/leaflet-src.css
+assets/css/leaflet.min.css.map:src/css/leaflet-src.css
+
+assets/css/img/.:src/css/img/.

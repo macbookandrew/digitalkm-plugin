@@ -16,18 +16,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'DKM_PLUGIN_FILE', __FILE__ );
-define( 'DKM_PLUGIN_DIR', dirname( __FILE__ ) );
-define( 'DKM_PLUGIN_DIR_URL', plugin_dir_url( DKM_PLUGIN_FILE ) );
-
 class DKM_Plugin {
 
 	/*
 	 * Plugin version
-	 *
-	 * @var string
 	 */
-	public $version = '1.0.0';
+	public function version() {
+		return '1.0.0';
+	}
+
+	/**
+	 * Get plugin directory
+	 * @return string path to this plugin directory
+	 */
+	private function get_plugin_dir() {
+		return dirname( __FILE__ );
+	}
+
+	/**
+	 * Get plugin directory URL
+	 * @return string URL to this plugin directory
+	 */
+	private function get_plugin_dir_url() {
+		return plugin_dir_url( __FILE__ );
+	}
 
 	/**
 	 * Main instance
@@ -62,27 +74,26 @@ class DKM_Plugin {
 	 * Add CPTs, taxonomies, helpers, etc.
 	 */
 	public function includes() {
-		require( DKM_PLUGIN_DIR . '/post-types/artifact.php' );
-		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_country.php' );
-		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_state.php' );
-		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_county.php' );
-		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_city.php' );
-		require( DKM_PLUGIN_DIR . '/taxonomies/artifact_subject.php' );
+		require( $this->get_plugin_dir() . '/post-types/artifact.php' );
+		require( $this->get_plugin_dir() . '/taxonomies/artifact_country.php' );
+		require( $this->get_plugin_dir() . '/taxonomies/artifact_state.php' );
+		require( $this->get_plugin_dir() . '/taxonomies/artifact_county.php' );
+		require( $this->get_plugin_dir() . '/taxonomies/artifact_city.php' );
+		require( $this->get_plugin_dir() . '/taxonomies/artifact_subject.php' );
 
-		require( DKM_PLUGIN_DIR . '/inc/content.php' );
+		require( $this->get_plugin_dir() . '/inc/content.php' );
 
-		require( DKM_PLUGIN_DIR . '/inc/helpers.php' );
+		require( $this->get_plugin_dir() . '/inc/helpers.php' );
 	}
 
 	/**
 	 * Register frontend assets
 	 */
 	public function register_assets() {
-		/** Leaflet */
-		wp_register_style( 'leaflet', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css' );
-		wp_register_script( 'leaflet', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js' );
-
-		wp_register_script( 'coordinates-map', DKM_PLUGIN_DIR_URL . 'assets/js/coordinates-map.min.js', array( 'leaflet' ), $this->version, true );
+		/** Leaflet and map */
+		wp_register_style( 'leaflet', $this->get_plugin_dir_url() . 'assets/css/leaflet.min.css', array(), '1.3.1' );
+		wp_enqueue_script( 'leaflet', $this->get_plugin_dir_url() . 'assets/js/leaflet.min.js', NULL, '1.3.1', true );
+		wp_enqueue_script( 'coordinates-map', $this->get_plugin_dir_url() . 'assets/js/coordinates-map.min.js', array( 'leaflet' ), $this->version(), true );
 	}
 
 	/**

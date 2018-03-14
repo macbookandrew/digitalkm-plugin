@@ -69,10 +69,11 @@ if ( $street_address || $cities || $counties || $states || $countries || $coordi
 		}
 
 		if ( $map ) {
-			echo '<div id="geoJSONMap' . get_the_ID() . '" class="geo-json-map" data-locationInfo=\'' . $map . '\'></div>';
-
 			wp_enqueue_style( 'leaflet' );
+			wp_enqueue_script( 'leaflet' );
 			wp_enqueue_script( 'coordinates-map' );
+
+			echo '<div id="geoJSONMap' . get_the_ID() . '" class="geo-json-map" data-locationInfo=\'' . $map . '\'></div>';
 		}
 
 	echo '</section>';
