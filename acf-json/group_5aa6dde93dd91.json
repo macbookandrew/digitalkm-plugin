@@ -3,6 +3,23 @@
     "title": "Item Metadata",
     "fields": [
         {
+            "key": "field_5aa82ccc086f7",
+            "label": "Images",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
             "key": "field_5aa8209620254",
             "label": "Images",
             "name": "images",
@@ -34,7 +51,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "array",
+                    "return_format": "id",
                     "preview_size": "medium",
                     "library": "all",
                     "min_width": "",
@@ -65,6 +82,23 @@
                     "delay": 0
                 }
             ]
+        },
+        {
+            "key": "field_5aa82cd7086f8",
+            "label": "Images",
+            "name": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 1
         },
         {
             "key": "field_5aa81bc61b81e",
@@ -173,7 +207,7 @@
             "allow_null": 1,
             "default_value": "na",
             "layout": "vertical",
-            "return_format": "value"
+            "return_format": "array"
         },
         {
             "key": "field_5aa6df75cbbb9",
@@ -194,7 +228,7 @@
             "add_term": 1,
             "save_terms": 1,
             "load_terms": 1,
-            "return_format": "id",
+            "return_format": "object",
             "multiple": 0
         },
         {
@@ -216,7 +250,7 @@
             "add_term": 1,
             "save_terms": 1,
             "load_terms": 1,
-            "return_format": "id",
+            "return_format": "object",
             "multiple": 0
         },
         {
@@ -238,7 +272,7 @@
             "add_term": 1,
             "save_terms": 1,
             "load_terms": 1,
-            "return_format": "id",
+            "return_format": "object",
             "multiple": 0
         },
         {
@@ -260,7 +294,7 @@
             "add_term": 1,
             "save_terms": 1,
             "load_terms": 1,
-            "return_format": "id",
+            "return_format": "object",
             "multiple": 0
         },
         {
@@ -297,6 +331,50 @@
             "open": 0,
             "multi_expand": 0,
             "endpoint": 1
+        },
+        {
+            "key": "field_5aa82c9e086f5",
+            "label": "Type",
+            "name": "type",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "category",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
+        },
+        {
+            "key": "field_5aa82c85086f4",
+            "label": "Topics",
+            "name": "topics",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "post_tag",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "id",
+            "multiple": 0
         },
         {
             "key": "field_5aa81e31bd72a",
@@ -416,11 +494,9 @@
     "instruction_placement": "label",
     "hide_on_screen": [
         "custom_fields",
-        "featured_image",
-        "categories",
-        "tags"
+        "featured_image"
     ],
     "active": 1,
     "description": "",
-    "modified": 1520970563
+    "modified": 1520991954
 }
