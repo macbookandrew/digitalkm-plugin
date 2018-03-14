@@ -4,7 +4,8 @@ $DKM_Helper = new DKM_Helper();
 
 if ( get_field( 'images' ) ) {
 	echo '<section id="images" class="meta">
-	<h2>Images</h2>';
+	<h2>Images</h2>
+	<div class="images">';
 	foreach ( get_field( 'images' ) as $image ) { ?>
 		<figure>
 			<?php echo wp_get_attachment_image( $image['ID'], array( 500, 500 ) ); ?>
@@ -12,8 +13,8 @@ if ( get_field( 'images' ) ) {
 		</figure>
 		<?php
 	}
-	# TODO: style as a horizontal slider?
-	echo '</section>';
+	echo '</div>
+	</section>';
 }
 
 $link_to_full_resource = get_field( 'link_to_full_resource' );
