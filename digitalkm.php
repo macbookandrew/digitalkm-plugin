@@ -47,11 +47,12 @@ class DKM_Plugin {
 	public function __construct() {
 		$this->includes();
 
-		/** ACF JSON save points */
-		$acf = new DKM_acf();
-
 		/** Frontend assets */
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
+
+		/** ACF JSON save points */
+		add_filter( 'acf/settings/save_json', array( $this, 'acf_json_save_point' ) );
+		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
 
 		/** Content filters */
 		add_filter( 'the_content', array( new DKM_Content(), 'artifact_metadata' ), 5 );
@@ -71,8 +72,6 @@ class DKM_Plugin {
 		require( DKM_PLUGIN_DIR . '/inc/content.php' );
 
 		require( DKM_PLUGIN_DIR . '/inc/helpers.php' );
-
-		require( DKM_PLUGIN_DIR . '/inc/acf.php' );
 	}
 
 	/**
@@ -84,6 +83,26 @@ class DKM_Plugin {
 		wp_register_script( 'leaflet', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js' );
 
 		wp_register_script( 'coordinates-map', DKM_PLUGIN_DIR_URL . 'assets/js/coordinates-map.min.js', array( 'leaflet' ), $this->version, true );
+	}
+
+	/**
+	 * Set ACF local JSON save directory
+	 * @param  string $path ACF local JSON save directory
+	 * @return string ACF local JSON save directory
+	 */
+	public function acf_json_save_point( $path ) {
+		return plugin_dir_path( __FILE__ ) . '/acf-json';
+	}
+
+
+	/**
+	 * Set ACF local JSON open directory
+	 * @param  array $path ACF local JSON open directory
+	 * @return array ACF local JSON open directory
+	 */
+	public function acf_json_load_point( $path ) {
+		$paths[] = plugin_dir_path( __FILE__ ) . '/acf-json';
+		return $paths;
 	}
 }
 
