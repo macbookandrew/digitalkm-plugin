@@ -2,16 +2,19 @@
 
 $DKM_Helper = new DKM_Helper();
 
-if ( get_field( 'images' ) ) {
+$images = get_field( 'images' );
+if ( $images ) {
+	wp_enqueue_style( 'flickity' );
+	wp_enqueue_script( 'flickity' );
+
 	echo '<section id="images" class="meta">
 	<h2>Images</h2>
-	<div class="images">';
-	foreach ( get_field( 'images' ) as $image ) { ?>
-		<figure>
-			<?php echo wp_get_attachment_image( $image['ID'], array( 500, 500 ) ); ?>
-			<figcaption><?php echo $image['description']; ?></figcaption>
-		</figure>
-		<?php
+	<div class="image-carousel" data-flickity=\'{ "autoPlay": true }\'>';
+	foreach ( $images as $image ) {
+		echo '<figure>
+			<a href="' . $image['url'] . '">' . wp_get_attachment_image( $image['ID'], array( 300, 300 ) ) . '</a>
+			<figcaption>' . $image['description'] . '</figcaption>
+		</figure>';
 	}
 	echo '</div>
 	</section>';

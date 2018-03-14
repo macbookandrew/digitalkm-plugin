@@ -90,6 +90,10 @@ class DKM_Plugin {
 	 * Register frontend assets
 	 */
 	public function register_assets() {
+		/** Flickity carousel */
+		wp_register_style( 'flickity', $this->get_plugin_dir_url() . 'assets/css/flickity.min.css', array(), '2.0.11' );
+		wp_register_script( 'flickity', $this->get_plugin_dir_url() . 'assets/js/flickity.pkgd.min.js', array(), '2.0.11', true );
+
 		/** Leaflet and map */
 		wp_register_style( 'leaflet', $this->get_plugin_dir_url() . 'assets/css/leaflet.min.css', array(), '1.3.1' );
 		wp_enqueue_script( 'leaflet', $this->get_plugin_dir_url() . 'assets/js/leaflet.min.js', NULL, '1.3.1', true );

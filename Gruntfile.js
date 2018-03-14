@@ -66,8 +66,10 @@ module.exports = function( grunt ) {
 			},
 			custom: {
 				files: {
-					'assets/js/coordinates-map.min.js': ['src/js/coordinates-map.js'],
+					'assets/js/flickity.min.js': ['src/js/flickity.pkgd.js'],
+
 					'assets/js/leaflet.min.js': ['src/js/leaflet-src.js'],
+					'assets/js/coordinates-map.min.js': ['src/js/coordinates-map.js'],
 				},
 			},
 		},
