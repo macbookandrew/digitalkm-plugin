@@ -16,18 +16,19 @@ if ( $images ) {
 			<figcaption>' . $image['description'] . '</figcaption>
 		</figure>';
 	}
-	echo '</div>
-	</section>';
+	echo '</div>';
+
+	$link_to_full_resource = get_field( 'link_to_full_resource' );
+	if ( $link_to_full_resource ) {
+		echo '<p class="text-center"><a class="button" id="link-to-full-resource" href="' . $link_to_full_resource . '">View Full Resource</a></p>';
+	}
+
+	echo '</section>';
 }
 ?>
 
 <aside class="sidebar left">
 	<?php
-	$link_to_full_resource = get_field( 'link_to_full_resource' );
-	if ( $link_to_full_resource ) {
-		echo '<p><a class="button" id="link-to-full-resource" href="' . $link_to_full_resource . '">View Full Resource</a></p>';
-	}
-
 	if ( get_field( 'item_begin_date' ) ) {
 		$begin_date = get_field( 'item_begin_date' );
 		$end_date = get_field( 'item_end_date' );
@@ -83,30 +84,6 @@ if ( $images ) {
 			}
 
 		echo '</section>';
-	}
-
-	$type = $DKM_Helper->get_artifact_tax_html( get_the_ID(), 'category', 'Type' );
-	if ( $type ) {
-		echo '<section id="type" class="meta">
-			<h2>Type</h2>
-			<p>' . $type . '</p>
-		</section>';
-	}
-
-	$topics = $DKM_Helper->get_artifact_tax_html( get_the_ID(), 'post_tag', 'Topics' );
-	if ( $type ) {
-		echo '<section id="topics" class="meta">
-			<h2>Topics</h2>
-			<p>' . $topics . '</p>
-		</section>';
-	}
-
-	$subject = $DKM_Helper->get_artifact_tax_html( get_the_ID(), 'artifact_subject', 'Subject' );
-	if ( $subject ) {
-		echo '<section id="subject" class="meta">
-			<h2>Subject</h2>
-			<p>' . $subject . '</p>
-		</section>';
 	}
 	?>
 </aside>
