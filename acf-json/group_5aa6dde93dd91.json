@@ -225,11 +225,11 @@
             "multiple": 0
         },
         {
-            "key": "field_5aa6de6ccbbb5",
-            "label": "Coordinates",
-            "name": "coordinates",
-            "type": "google_map",
-            "instructions": "",
+            "key": "field_5aa945a3c13c7",
+            "label": "Map",
+            "name": "map",
+            "type": "geometa",
+            "instructions": "Use a pin for specific locations; use the polygon tool (pentagon icon) to add basic regions.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -237,10 +237,7 @@
                 "class": "",
                 "id": ""
             },
-            "center_lat": "35.245134",
-            "center_lng": "-81.341194",
-            "zoom": 12,
-            "height": ""
+            "user_input_type": "map"
         },
         {
             "key": "field_5aa6dfadcbbbd",
@@ -425,5 +422,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1520991954
+    "modified": 1521045427
 }

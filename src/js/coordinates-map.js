@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 	"use strict";
 	var i,
-		maps = document.getElementsByClassName('coordinates-map');
+		geoJSONMaps = document.getElementsByClassName('geo-json-map');
 
 	/** Loop through all maps */
-	for (i = 0; i < maps.length; i += 1) {
+	for (i = 0; i < geoJSONMaps.length; i += 1) {
 
 		/** Get data */
-		var thisMapLocationInfo = JSON.parse(maps[i].dataset.locationinfo),
-			thisMap = L.map(maps[i], {
+		var thisMapLocationInfo = JSON.parse(geoJSONMaps[i].dataset.locationinfo),
+			thisMap = L.map(geoJSONMaps[i], {
 				scrollWheelZoom: false,
-			}).setView([thisMapLocationInfo.lat, thisMapLocationInfo.lng], 11),
+			}).setView([35.245134, -81.341194], 9),
 			marker,
 			markerGroup;
 
@@ -19,27 +19,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(thisMap);
 
-		/** Handle points vs. circles */
-		if (thisMapLocationInfo.precision === 'radius') {
-			marker = L.circle([thisMapLocationInfo.lat, thisMapLocationInfo.lng], {
-				title: thisMapLocationInfo.address,
-				radius: thisMapLocationInfo.radius * 1609.344,
-			}).addTo(thisMap);
-		} else {
-			marker = L.marker([thisMapLocationInfo.lat, thisMapLocationInfo.lng], {
-				title: thisMapLocationInfo.address,
-			}).addTo(thisMap);
-		}
+		L.geoJSON(thisMapLocationInfo).addTo(thisMap);
 
-		/** Add popup */
-		if (typeof marker !== 'undefined') {
-			marker.bindPopup(thisMapLocationInfo.address).openPopup();
-		}
-
-		/** Zoom to fit circles */
-		if (thisMapLocationInfo.precision === 'radius') {
-			thisMap.fitBounds(marker.getBounds().pad(0.03));
-		}
+		/** Zoom to fit all features */
+		thisMap.fitBounds(L.geoJSON(thisMapLocationInfo).getBounds().pad(0.03));
 
 	}
+
 });

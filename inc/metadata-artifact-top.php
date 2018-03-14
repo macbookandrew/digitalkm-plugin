@@ -38,7 +38,7 @@ $cities = get_field( 'city' );
 $counties = get_field( 'county' );
 $states = get_field( 'state' );
 $countries = get_field( 'country' );
-$coordinates = get_field( 'coordinates' );
+$map = get_field( 'map' );
 
 if ( $street_address || $cities || $counties || $states || $countries || $coordinates ) {
 	echo '<section id="location" class="meta">
@@ -67,15 +67,13 @@ if ( $street_address || $cities || $counties || $states || $countries || $coordi
 			echo $DKM_Helper->get_artifact_tax_html( get_the_ID(), 'artifact_country', 'Country' );
 		}
 
-		if ( $coordinates ) {
-			$coordinates['precision'] = get_field( 'coordinates_precision' );
-			$coordinates['radius'] = get_field( 'coordinates_precision_radius' );
-
-			echo '<div id="coordinatesMap' . get_the_ID() . '" class="coordinates-map" data-locationInfo=\'' . json_encode( $coordinates ) . '\'></div>';
+		if ( $map ) {
+			echo '<div id="geoJSONMap' . get_the_ID() . '" class="geo-json-map" data-locationInfo=\'' . $map . '\'></div>';
 
 			wp_enqueue_style( 'leaflet' );
 			wp_enqueue_script( 'coordinates-map' );
 		}
+
 	echo '</section>';
 }
 
