@@ -30,6 +30,19 @@ class DKM_Helper {
 	}
 
 	/**
+	 * Get string with custom taxonomy names and links
+	 * @param  integer $post_id     WP post ID
+	 * @param  string  $taxonomy    registered taxonomy name
+	 * @param  array   $label_array array with singular and plural labels
+	 * @return string  formatted HTML string
+	 */
+	public function get_artifact_tax_html( $post_id, $taxonomy, $label ) {
+		return get_the_term_list( $post_id, $taxonomy, '<p><strong>' . $label . '</strong>: ', ', ', '</p>' );
+
+		return $content;
+	}
+
+	/**
 	 * Get query parameter for date range
 	 * @param  string $begin_date Ymd-formatted begin date
 	 * @param  string $end_date   Ymd-formatted end date
@@ -50,5 +63,4 @@ class DKM_Helper {
 
 		return $query_string;
 	}
-
 }
