@@ -47,19 +47,18 @@ class DKM_Plugin {
 	public function __construct() {
 		$this->includes();
 
+		/** ACF JSON save points */
+		$acf = new DKM_acf();
+
 		/** Frontend assets */
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
-
-		/** ACF JSON save points */
-		add_filter( 'acf/settings/save_json', array( $this, 'acf_json_save_point' ) );
-		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
 
 		/** Content filters */
 		add_filter( 'the_content', array( new DKM_Content(), 'artifact_metadata' ), 5 );
 	}
 
 	/**
-	 * Add custom post type and taxonomies
+	 * Add CPTs, taxonomies, helpers, etc.
 	 */
 	public function includes() {
 		require( DKM_PLUGIN_DIR . '/post-types/artifact.php' );
@@ -72,32 +71,15 @@ class DKM_Plugin {
 		require( DKM_PLUGIN_DIR . '/inc/content.php' );
 
 		require( DKM_PLUGIN_DIR . '/inc/helpers.php' );
+
+		require( DKM_PLUGIN_DIR . '/inc/acf.php' );
 	}
 
 	/**
 	 * Register frontend assets
 	 */
 	public function register_assets() {
-	}
 
-	/**
-	 * Set ACF local JSON save directory
-	 * @param  string $path ACF local JSON save directory
-	 * @return string ACF local JSON save directory
-	 */
-	public function acf_json_save_point( $path ) {
-		return plugin_dir_path( __FILE__ ) . '/acf-json';
-	}
-
-
-	/**
-	 * Set ACF local JSON open directory
-	 * @param  array $path ACF local JSON open directory
-	 * @return array ACF local JSON open directory
-	 */
-	public function acf_json_load_point( $path ) {
-		$paths[] = plugin_dir_path( __FILE__ ) . '/acf-json';
-		return $paths;
 	}
 }
 
