@@ -13,8 +13,12 @@ class DKM_Content {
 	function artifact_metadata( $content ) {
 		if ( 'artifact' === get_post_type() ) {
 			ob_start();
-			include( 'metadata-artifact.php' );
+			include( 'metadata-artifact-top.php' );
 			$content = ob_get_clean() . $content;
+
+			ob_start();
+			include( 'metadata-artifact-bottom.php' );
+			$content .= ob_get_clean();
 		}
 
 		return $content;
