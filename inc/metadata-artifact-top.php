@@ -7,7 +7,7 @@ if ( get_field( 'images' ) ) {
 	<h2>Images</h2>';
 	foreach ( get_field( 'images' ) as $image ) { ?>
 		<figure>
-			<?php echo wp_get_attachment_image( $image['image'], array( 500, 500 ) ); ?>
+			<?php echo wp_get_attachment_image( $image['ID'], array( 500, 500 ) ); ?>
 			<figcaption><?php echo $image['description']; ?></figcaption>
 		</figure>
 		<?php

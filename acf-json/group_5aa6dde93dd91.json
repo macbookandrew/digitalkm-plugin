@@ -3,28 +3,11 @@
     "title": "Item Metadata",
     "fields": [
         {
-            "key": "field_5aa82ccc086f7",
-            "label": "Images",
-            "name": "",
-            "type": "accordion",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "open": 1,
-            "multi_expand": 1,
-            "endpoint": 0
-        },
-        {
-            "key": "field_5aa8209620254",
+            "key": "field_5aa945b3c13c8",
             "label": "Images",
             "name": "images",
-            "type": "repeater",
-            "instructions": "Add as many rows as necessary. When adding image(s), don’t forget to add alt text for accessibility.",
+            "type": "gallery",
+            "instructions": "Don’t forget to add basic alt text (for accessibility) and a description (displayed publicly) in the media uploader.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -32,73 +15,17 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "",
-            "sub_fields": [
-                {
-                    "key": "field_5aa820d520255",
-                    "label": "Image",
-                    "name": "image",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "preview_size": "medium",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
-                },
-                {
-                    "key": "field_5aa820fa20256",
-                    "label": "Description",
-                    "name": "description",
-                    "type": "wysiwyg",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "tabs": "all",
-                    "toolbar": "full",
-                    "media_upload": 0,
-                    "delay": 0
-                }
-            ]
-        },
-        {
-            "key": "field_5aa82cd7086f8",
-            "label": "Images",
-            "name": "",
-            "type": "accordion",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "open": 1,
-            "multi_expand": 1,
-            "endpoint": 1
+            "min": "",
+            "max": "",
+            "insert": "append",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
         },
         {
             "key": "field_5aa81bc61b81e",
