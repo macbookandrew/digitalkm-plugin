@@ -41,6 +41,9 @@ class DKM_Plugin {
 		return plugin_dir_url( __FILE__ );
 	}
 
+	/** TimelineJS3 version */
+	private $timeline_version = '3.5.4';
+
 	/**
 	 * Main instance
 	 * @return main instance
@@ -65,9 +68,6 @@ class DKM_Plugin {
 		/** ACF JSON save points */
 		add_filter( 'acf/settings/save_json', array( $this, 'acf_json_save_point' ) );
 		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
-
-		/** Content filters */
-		add_filter( 'the_content', array( new DKM_Content(), 'artifact_metadata' ), 5 );
 	}
 
 	/**
@@ -86,6 +86,8 @@ class DKM_Plugin {
 		require( $this->get_plugin_dir() . '/inc/helpers.php' );
 
 		require( $this->get_plugin_dir() . '/inc/rest-api.php' );
+
+		new DKM_Content();
 		new DKM_Rest();
 	}
 
@@ -101,6 +103,10 @@ class DKM_Plugin {
 		wp_register_style( 'leaflet', $this->get_plugin_dir_url() . 'assets/css/leaflet.min.css', array(), '1.3.1' );
 		wp_enqueue_script( 'leaflet', $this->get_plugin_dir_url() . 'assets/js/leaflet.min.js', NULL, '1.3.1', true );
 		wp_enqueue_script( 'coordinates-map', $this->get_plugin_dir_url() . 'assets/js/coordinates-map.min.js', array( 'leaflet' ), $this->version(), true );
+
+		/** TimelineJS3 */
+		wp_register_style( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/css/timeline.css', array(), $this->timeline_version );
+		wp_register_script( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/js/timeline-min.js', array(), $this->timeline_version, true );
 	}
 
 	/**
