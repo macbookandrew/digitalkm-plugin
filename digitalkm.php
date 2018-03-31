@@ -84,6 +84,9 @@ class DKM_Plugin {
 		require( $this->get_plugin_dir() . '/inc/content.php' );
 
 		require( $this->get_plugin_dir() . '/inc/helpers.php' );
+
+		require( $this->get_plugin_dir() . '/inc/rest-api.php' );
+		new DKM_Rest();
 	}
 
 	/**
