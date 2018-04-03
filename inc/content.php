@@ -20,7 +20,7 @@ class DKM_Content extends DKM_Plugin {
 	 * @return string HTML content with metadata prepended
 	 */
 	function artifact_metadata( $content ) {
-		if ( 'artifact' === get_post_type() ) {
+		if ( is_singular( 'artifact' ) || is_post_type_archive( 'artifact' ) || is_tax( 'category', 'post_tag', 'artifact_country', 'artifact_state', 'artifact_county', 'artifact_city', 'artifact_subject', ) ) {
 			ob_start();
 			include( 'metadata-artifact-top.php' );
 			$content = ob_get_clean() . $content;
