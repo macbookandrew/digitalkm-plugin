@@ -3,7 +3,7 @@
 $DKM_Helper = new DKM_Helper();
 
 $images = get_field( 'images' );
-if ( $images ) {
+if ( count( $images ) > 0 ) {
 	wp_enqueue_style( 'flickity' );
 	wp_enqueue_script( 'flickity' );
 
