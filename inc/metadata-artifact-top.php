@@ -29,6 +29,8 @@ if ( count( $images ) > 0 ) {
 
 <aside class="sidebar left">
 	<?php
+	global $post;
+
 	if ( get_field( 'item_begin_date' ) ) {
 		$begin_date = get_field( 'item_begin_date' );
 		$end_date = get_field( 'item_end_date' );
@@ -36,7 +38,7 @@ if ( count( $images ) > 0 ) {
 		echo '<section id="dates" class="meta">
 		<h2>Date</h2>
 		<p>'. $DKM_Helper->format_date_range( $begin_date, $end_date ) . '</p>
-		<p><a href="' . home_url() . '/timeline/#' . $DKM_Helper->get_timeline_range_query( $begin_date, $end_date ) . '&postid-' . get_the_ID() . '" class="button">See on Timeline</a></p>
+		<p><a href="' . home_url() . '/timeline/#' . $post->post_name . '" class="button">See on Timeline</a></p>
 		</section>';
 	}
 

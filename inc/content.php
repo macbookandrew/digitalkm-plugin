@@ -59,9 +59,11 @@ class DKM_Content extends DKM_Plugin {
 		$shortcode_attributes = shortcode_atts( array (
 		), $attributes );
 
+		$timeline_options = '{hash_bookmark: true}';
+
 		wp_enqueue_style( 'timeline-js3' );
 		wp_enqueue_script( 'timeline-js3' );
-		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( NULL, '/dkm/v1/timeline/' ) . '");' );
+		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( NULL, '/dkm/v1/timeline/' ) . '", ' . $timeline_options . ');' );
 
 		ob_start();
 		echo '<div id="timeline-embed"></div>';
