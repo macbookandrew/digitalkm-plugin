@@ -61,6 +61,7 @@ class DKM_Rest extends DKM_Plugin {
 	 */
 	private function get_timeline_data( $query_args ) {
 		$artifacts = new WP_Query( $query_args );
+		global $post;
 
 		$results = array( 'events' => array(), );
 
@@ -69,7 +70,7 @@ class DKM_Rest extends DKM_Plugin {
 				$artifacts->the_post();
 
 				$this_event = array(
-					'unique_id' => get_the_ID(),
+					'unique_id' => $post->post_name,
 					'text'			=> array(
 						'headline'	=> get_the_title(),
 						'text'		=> get_the_excerpt(),
