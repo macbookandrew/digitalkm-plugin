@@ -11,7 +11,7 @@ class DKM_Content extends DKM_Plugin {
 		add_filter( 'the_content', array( $this, 'artifact_metadata' ), 5 );
 
 		/** Image filters */
-		add_action( 'save_post_artifact', array( $this, 'artifact_thumbnail' ), 15, 3 );
+		add_action( 'acf/save_post', array( $this, 'artifact_thumbnail' ), 15 );
 		add_action( 'after_setup_theme', array( $this, 'custom_image_sizes' ) );
 
 		/** Shortcodes */
@@ -44,7 +44,7 @@ class DKM_Content extends DKM_Plugin {
 	 * @param  boolean bool    $update  Whether this is an existing post being updated or not
 	 * @return boolean Whether post metadata was updated with thumbainl ID
 	 */
-	function artifact_thumbnail( int $post_ID, WP_Post $post, bool $update ) {
+	function artifact_thumbnail( int $post_ID ) {
 		$gallery_images = get_field( 'images', $post_ID, false );
 		if ( ! empty( $gallery_images ) ) {
 			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0] );
