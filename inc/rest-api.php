@@ -76,6 +76,11 @@ class DKM_Rest extends DKM_Plugin {
 					),
 				);
 
+				$tags = wp_get_post_tags( get_the_ID() );
+				if ( ! empty( $tags ) ) {
+					$this_event['group'] = $tags[0]->name;
+				}
+
 				$begin_date = get_field( 'item_begin_date' );
 				$end_date = get_field( 'item_end_date' );
 
