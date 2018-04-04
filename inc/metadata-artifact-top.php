@@ -43,7 +43,7 @@ if ( ! empty( $images ) ) {
 		echo '<section id="dates" class="meta">
 		<h2>Date</h2>
 		<p>'. $DKM_Helper->format_date_range( $begin_date, $end_date ) . '</p>
-		<p><a href="' . home_url() . '/timeline/#' . $post->post_name . '" class="button">See on Timeline</a></p>
+		<p><a href="' . home_url() . '/timeline/#event-' . $post->post_name . '" class="button">See on Timeline</a></p>
 		</section>';
 	}
 
