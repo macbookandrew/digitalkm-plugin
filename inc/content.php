@@ -15,7 +15,7 @@ class DKM_Content extends DKM_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'custom_image_sizes' ) );
 
 		/** Shortcodes */
-		add_shortcode( 'dkm_timeline', array( $this, 'timeline' ) );
+		add_shortcode( 'dkm_timeline', array( $this, 'timeline_shortcode' ) );
 	}
 
 	/**
@@ -59,11 +59,11 @@ class DKM_Content extends DKM_Plugin {
 	}
 
 	/**
-	 * Build TimelineJS3 timeline
+	 * Embed TimelineJS3 timeline
 	 * @param  array  $attributes Shortcode attributes
 	 * @return string HTML content
 	 */
-	function timeline( $attributes ) {
+	function timeline_shortcode( $attributes ) {
 		$shortcode_attributes = shortcode_atts( array (
 		), $attributes );
 
