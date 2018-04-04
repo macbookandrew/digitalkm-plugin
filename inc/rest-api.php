@@ -113,7 +113,7 @@ class DKM_Rest extends DKM_Plugin {
 					$this_event['media'] = array(
 						'url'   	=> get_the_post_thumbnail_url(),
 						'title' 	=> get_the_title( get_post_thumbnail_id() ),
-						'thumbnail'	=> get_the_post_thumbnail_url( get_the_ID(), array( 50, 50 ) ),
+						'thumbnail'	=> get_the_post_thumbnail_url( get_the_ID(), 'timeline-thumbnail' ),
 						'link'		=> get_permalink(),
 					);
 				}

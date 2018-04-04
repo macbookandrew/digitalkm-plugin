@@ -12,6 +12,7 @@ class DKM_Content extends DKM_Plugin {
 
 		/** Image filters */
 		add_action( 'save_post_artifact', array( $this, 'artifact_thumbnail' ), 15, 3 );
+		add_action( 'after_setup_theme', array( $this, 'custom_image_sizes' ) );
 
 		/** Shortcodes */
 		add_shortcode( 'dkm_timeline', array( $this, 'timeline' ) );
@@ -48,6 +49,13 @@ class DKM_Content extends DKM_Plugin {
 		if ( ! empty( $gallery_images ) ) {
 			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0] );
 		}
+	}
+
+	/**
+	 * Add custom image sizes
+	 */
+	function custom_image_sizes() {
+		add_image_size( 'timeline-thumbnail', 75, 75, true );
 	}
 
 	/**
