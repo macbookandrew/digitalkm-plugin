@@ -46,7 +46,7 @@ class DKM_Content extends DKM_Plugin {
 	function artifact_thumbnail( int $post_ID, WP_Post $post, bool $update ) {
 		$gallery_images = get_field( 'images', $post_ID, false );
 		if ( ! empty( $gallery_images ) ) {
-			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0], true );
+			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0] );
 		}
 	}
 
