@@ -10,6 +10,9 @@ class DKM_Content extends DKM_Plugin {
 		/** Content filters */
 		add_filter( 'the_content', array( $this, 'artifact_metadata' ), 5 );
 
+		/** Image filters */
+		add_action( 'save_post_artifact', array( $this, 'artifact_thumbnail' ), 15, 3 );
+
 		/** Shortcodes */
 		add_shortcode( 'dkm_timeline', array( $this, 'timeline' ) );
 	}
@@ -31,6 +34,20 @@ class DKM_Content extends DKM_Plugin {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Save first gallery image to featured image
+	 * @param  integer int     $post_ID  WP post ID
+	 * @param  object  WP_Post $post WP_Post
+	 * @param  boolean bool    $update  Whether this is an existing post being updated or not
+	 * @return boolean Whether post metadata was updated with thumbainl ID
+	 */
+	function artifact_thumbnail( int $post_ID, WP_Post $post, bool $update ) {
+		$gallery_images = get_field( 'images', $post_ID, false );
+		if ( ! empty( $gallery_images ) ) {
+			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0], true );
+		}
 	}
 
 	/**
