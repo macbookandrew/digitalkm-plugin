@@ -101,12 +101,22 @@ class DKM_Rest extends DKM_Plugin {
 					);
 				}
 
-				if ( has_post_thumbnail() ) {
+				$video_url = get_field( 'video_url' );
+
+				if ( ! empty( $video_url ) ) {
 					$this_event['media'] = array(
-						'url'   => get_the_post_thumbnail_url(),
-						'title' => get_the_title( get_post_thumbnail_id() ),
+						'url'   	=> $video_url,
+						'link'		=> get_permalink(),
+					);
+				} elseif ( has_post_thumbnail() ) {
+					$this_event['media'] = array(
+						'url'   	=> get_the_post_thumbnail_url(),
+						'title' 	=> get_the_title( get_post_thumbnail_id() ),
+						'thumbnail'	=> get_the_post_thumbnail_url( get_the_ID(), array( 50, 50 ) ),
+						'link'		=> get_permalink(),
 					);
 				}
+
 				$results['events'][] = $this_event;
 			}
 		}

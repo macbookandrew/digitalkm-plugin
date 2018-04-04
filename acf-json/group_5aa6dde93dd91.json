@@ -28,6 +28,22 @@
             "mime_types": ""
         },
         {
+            "key": "field_5ac4e89f021ca",
+            "label": "Video URL",
+            "name": "video_url",
+            "type": "url",
+            "instructions": "Video to show instead of gallery images.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https:\/\/youtu.be\/xxx"
+        },
+        {
             "key": "field_5aa81bc61b81e",
             "label": "Link to Full Resource",
             "name": "link_to_full_resource",
@@ -422,5 +438,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1521045427
+    "modified": 1522854115
 }
