@@ -55,7 +55,7 @@ if ( ! empty( $images ) ) {
 	$countries = get_field( 'country' );
 	$map = get_field( 'map' );
 
-	if ( $street_address || $cities || $counties || $states || $countries || $coordinates ) {
+	if ( $street_address || $cities || $counties || $states || $countries || $map ) {
 		echo '<section id="location" class="meta">
 		<h2>Location</h2>';
 			if ( $street_address ) {
