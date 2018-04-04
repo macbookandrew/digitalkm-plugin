@@ -73,7 +73,7 @@ class DKM_Rest extends DKM_Plugin {
 					'unique_id' => $post->post_name,
 					'text'			=> array(
 						'headline'	=> get_the_title(),
-						'text'		=> get_the_excerpt(),
+						'text'		=> '<p>' . get_the_excerpt() . '</p><p><a class="button" href="' . get_permalink() . '">Read more</a></p>',
 					),
 				);
 
