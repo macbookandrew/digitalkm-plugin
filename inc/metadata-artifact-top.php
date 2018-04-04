@@ -3,7 +3,7 @@
 $DKM_Helper = new DKM_Helper();
 
 $images = get_field( 'images' );
-if ( count( $images ) > 0 ) {
+if ( ! empty( $images ) ) {
 	wp_enqueue_style( 'flickity' );
 	wp_enqueue_script( 'flickity' );
 
@@ -24,6 +24,11 @@ if ( count( $images ) > 0 ) {
 	}
 
 	echo '</section>';
+} elseif ( ! empty( get_field( 'video_url' ) ) ) {
+	echo '<section id="images">
+	<h2>Video</h2>
+	' . wp_oembed_get( get_field( 'video_url' ) ) . '
+	</section>';
 }
 ?>
 
