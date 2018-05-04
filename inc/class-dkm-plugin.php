@@ -72,6 +72,21 @@ class DKM_Plugin {
 
 		/** Tax queries */
 		add_action( 'pre_get_posts', array( $this, 'include_all_post_types' ) );
+
+		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+	}
+
+	/**
+	 * Registers a new options page under Settings.
+	 */
+	public function add_options_page() {
+		return acf_add_options_page(array(
+			'page_title' 	=> 'DigitalKM Settings',
+			'menu_title' 	=> 'DigitalKM Settings',
+			'menu_slug' 	=> 'dkm-settings',
+			'capability' 	=> 'manage_options',
+			'redirect' 		=> false,
+		));
 	}
 
 	/**

@@ -27,7 +27,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": ""
+                "value": "dkm-settings"
             }
         ]
     ],
@@ -39,5 +39,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1525448896
+    "modified": 1525462207
 }
