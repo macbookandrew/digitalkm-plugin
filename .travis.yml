@@ -1,65 +1,60 @@
 sudo: false
 dist: trusty
-
 language: php
-
 notifications:
   email:
     on_success: never
     on_failure: change
-
+  slack:
+    secure: dfud1Q4jO71/zNZmdDIbmSDbn+DcWhUIwNNaAy3PHUejVfu/fdFh0MLL91nTXA1dTL63yDSheOIyiLswo/Ct9+Zbg4MHkoG+BElnYtc2Wu2PP4v4RoqajwGUN95A67G5rKwmtyKE1Uw3ij/45qRWRdVEjl/+u8ZMebB10mNkPrWHmMiGLsbxKLvWewKIOsuBS8AXVey1QXbNVgkA7f5bRn3J+wgSTpPykSPw64LPTO7WYGJJsaygQpK1djpNAjAOeHOKVEXhQ9R8sgrdQH3nhsYp2IE/r36LTE4iLjpP/DZssQNV+tPEEmxrtNFWPZWzEt+fpWZq0vv1ZOoOySF2CacgE8TsPPb329eN+9sJIhE3hGDfoHAOTBBFok6UDMQRQ12EScx5J4h6xham27TmIxtjYd1GxsuHsEmMyDKL3nq7Bty/tWIdvudYrrCNgKWBVtrY/5Dp+RcD779m4oY2HNHeZsrty/60Xuj9cKzSwl4b6SnhzTwTSIT9eViNQtg27jEAvk6eUwIpkI111K0GfvgR6xbeOdllJYzfMzEKos8xT34ozhEbxjeq2RA4wosHTvprXMceDtlwh8MPUxsCvuH8ugEjiViEES/nIWLsCrDAAp7WpA1dKzpSqyGzg8eHTZnLhLfJdk6dIsamHppC1mcQm8GsKGqSIWhc1Ry6wIY=
 branches:
   only:
-    - master
-
+  - master
 cache:
   directories:
-    - $HOME/.composer/cache
-
+  - "$HOME/.composer/cache"
 matrix:
   include:
-    - php: 7.1
-      env: WP_VERSION=latest
-    - php: 7.0
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=4.4
-    - php: 5.6
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=trunk
-    - php: 5.6
-      env: WP_TRAVISCI=phpcs
-    - php: 5.3
-      env: WP_VERSION=latest
-      dist: precise
-
+  - php: 7.1
+    env: WP_VERSION=latest
+  - php: 7.0
+    env: WP_VERSION=latest
+  - php: 5.6
+    env: WP_VERSION=4.4
+  - php: 5.6
+    env: WP_VERSION=latest
+  - php: 5.6
+    env: WP_VERSION=trunk
+  - php: 5.6
+    env: WP_TRAVISCI=phpcs
+  - php: 5.3
+    env: WP_VERSION=latest
+    dist: precise
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - |
-    if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
-      phpenv config-rm xdebug.ini
-    else
-      echo "xdebug.ini does not exist"
-    fi
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      composer global require "phpunit/phpunit=4.8.*|5.7.*"
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      composer global require wp-coding-standards/wpcs
-      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
-    fi
-
+- export PATH="$HOME/.composer/vendor/bin:$PATH"
+- |
+  if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+    phpenv config-rm xdebug.ini
+  else
+    echo "xdebug.ini does not exist"
+  fi
+- |
+  if [[ ! -z "$WP_VERSION" ]] ; then
+    bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+    composer global require "phpunit/phpunit=4.8.*|5.7.*"
+  fi
+- |
+  if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
+    composer global require wp-coding-standards/wpcs
+    phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+  fi
 script:
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit
-      WP_MULTISITE=1 phpunit
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
-    fi
+- |
+  if [[ ! -z "$WP_VERSION" ]] ; then
+    phpunit
+    WP_MULTISITE=1 phpunit
+  fi
+- |
+  if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
+    phpcs
+  fi
