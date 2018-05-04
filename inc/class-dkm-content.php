@@ -71,6 +71,10 @@ class DKM_Content extends DKM_Plugin {
 	 */
 	public function custom_image_sizes() {
 		add_image_size( 'timeline-thumbnail', 75, 75, true );
+		add_image_size( 'timeline-image-sm', 150, 150 );
+		add_image_size( 'timeline-image-md', 300, 300 );
+		add_image_size( 'timeline-image-lg', 450, 450 );
+		add_image_size( 'timeline-image-xl', 600, 600 );
 	}
 
 	/**

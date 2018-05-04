@@ -44,6 +44,21 @@ class DKM_Rest extends DKM_Plugin {
 	}
 
 	/**
+	 * Format date for TimelineJS
+	 *
+	 * @param  string string $input_date Ymd-formatted date to be split up.
+	 * @return array  Formatted date array for TimelineJS
+	 */
+	private function format_date( string $input_date ) {
+		$date = DateTime::createFromFormat( 'Ymd', $input_date );
+		return array(
+			'day'   => $date->format( 'd' ),
+			'month' => $date->format( 'm' ),
+			'year'  => $date->format( 'Y' ),
+		);
+	}
+
+	/**
 	 * Set defaut query args for timeline
 	 *
 	 * @param  array [ $extra_args = array()] Query args to override defaults.
@@ -51,7 +66,7 @@ class DKM_Rest extends DKM_Plugin {
 	 */
 	private function get_query_args( $extra_args = array() ) {
 		$defaults = array(
-			'post_type'  => 'artifact',
+			'post_type'  => array( 'artifact', 'mayor' ),
 			'order'      => 'ASC',
 			'orderby'    => 'meta_value_num',
 			'meta_key'   => 'item_begin_date',
@@ -63,6 +78,10 @@ class DKM_Rest extends DKM_Plugin {
 				),
 				array(
 					'key'     => 'item_end_date',
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => 'mayoral_service_dates',
 					'compare' => 'EXISTS',
 				),
 			),
@@ -91,32 +110,11 @@ class DKM_Rest extends DKM_Plugin {
 					'unique_id' => $post->post_name,
 					'text'      => array(
 						'headline' => get_the_title(),
-						'text'     => '<p>' . get_the_excerpt() . '</p><p><a class="button" href="' . get_permalink() . '">Read more</a></p>',
+						'text'     => apply_filters( 'the_content', get_the_content() ),
 					),
 				);
 
-				$begin_date = get_field( 'item_begin_date' );
-				$end_date   = get_field( 'item_end_date' );
-
-				if ( ! empty( $begin_date ) ) {
-					$begin_date               = DateTime::createFromFormat( 'Ymd', $begin_date );
-					$this_event['start_date'] = array(
-						'day'   => $begin_date->format( 'd' ),
-						'month' => $begin_date->format( 'm' ),
-						'year'  => $begin_date->format( 'Y' ),
-					);
-				}
-				if ( ! empty( $end_date ) ) {
-					$end_date               = DateTime::createFromFormat( 'Ymd', $end_date );
-					$this_event['end_date'] = array(
-						'day'   => $end_date->format( 'd' ),
-						'month' => $end_date->format( 'm' ),
-						'year'  => $end_date->format( 'Y' ),
-					);
-				}
-
 				$video_url = get_field( 'video_url' );
-
 				if ( ! empty( $video_url ) ) {
 					$this_event['media'] = array(
 						'url'  => $video_url,
@@ -124,14 +122,39 @@ class DKM_Rest extends DKM_Plugin {
 					);
 				} elseif ( has_post_thumbnail() ) {
 					$this_event['media'] = array(
-						'url'       => get_the_post_thumbnail_url(),
+						'url'       => get_the_post_thumbnail_url( $post, 'timeline-image-lg' ),
 						'title'     => get_the_title( get_post_thumbnail_id() ),
-						'thumbnail' => get_the_post_thumbnail_url( get_the_ID(), 'timeline-thumbnail' ),
+						'thumbnail' => get_the_post_thumbnail_url( $post, 'timeline-thumbnail' ),
 						'link'      => get_permalink(),
 					);
 				}
 
-				$results['events'][] = $this_event;
+				// Handle artifacts and mayors differently.
+				if ( 'artifact' === get_post_type() ) {
+					$this_event['group'] = 'Historical Items';
+
+					$begin_date = get_field( 'item_begin_date' );
+					$end_date   = get_field( 'item_end_date' );
+
+					if ( ! empty( $begin_date ) ) {
+						$this_event['start_date'] = $this->format_date( $begin_date );
+					}
+					if ( ! empty( $end_date ) ) {
+						$this_event['end_date'] = $this->format_date( $end_date );
+					}
+
+					$results['events'][] = $this_event;
+				} elseif ( 'mayor' === get_post_type() ) {
+					$this_event['group'] = 'Mayors';
+
+					$service_dates = get_field( 'mayoral_service_dates' );
+					foreach ( $service_dates as $date ) {
+						$this_event['unique_id'] = $post->post_name . '-' . $date['begin_date'];
+						$this_event['start_date'] = $this->format_date( $date['begin_date'] );
+						$this_event['end_date'] = $this->format_date( $date['end_date'] );
+						$results['events'][] = $this_event;
+					}
+				}
 			}
 		}
 
