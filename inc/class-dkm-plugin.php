@@ -69,6 +69,9 @@ class DKM_Plugin {
 		/** ACF JSON save points */
 		add_filter( 'acf/settings/save_json', array( $this, 'acf_json_save_point' ) );
 		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
+
+		/** Tax queries */
+		add_action( 'pre_get_posts', array( $this, 'include_all_post_types' ) );
 	}
 
 	/**
@@ -111,6 +114,22 @@ class DKM_Plugin {
 		/** TimelineJS3 */
 		wp_register_style( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/css/timeline.css', array(), $this->timeline_version );
 		wp_register_script( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/js/timeline-min.js', array(), $this->timeline_version, true );
+	}
+
+	/**
+	 * Include all CPTs when loading a default tax archive
+	 *
+	 * @param  object WP_Query $query WP_Query.
+	 * @return object WP_Query
+	 */
+	public function include_all_post_types( WP_Query $query ) {
+		if ( $query->is_main_query() && ( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) ) {
+			// Get all post types.
+			$post_types = get_post_types();
+			$query->set( 'post_type', $post_types );
+		}
+
+		return $query;
 	}
 
 	/**

@@ -94,20 +94,3 @@ function artifact_updated_messages( $messages ) {
 	return $messages;
 }
 add_filter( 'post_updated_messages', 'artifact_updated_messages' );
-
-/**
- * Include artifacts when loading a default tax archive
- *
- * @param  object WP_Query $query WP_Query.
- * @return object WP_Query
- */
-function artifact_pre_get_posts( WP_Query $query ) {
-	if ( $query->is_main_query() && ( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) ) {
-		// Get all post types.
-		$post_types = get_post_types();
-		$query->set( 'post_type', $post_types );
-	}
-
-	return $query;
-}
-add_action( 'pre_get_posts', 'artifact_pre_get_posts' );
