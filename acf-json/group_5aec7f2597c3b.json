@@ -56,6 +56,40 @@
                     "first_day": 0
                 }
             ]
+        },
+        {
+            "key": "field_5aec874784ca6",
+            "label": "Birth Date",
+            "name": "item_begin_date",
+            "type": "date_picker",
+            "instructions": "Birth date. If specific date unknown, enter the first day of the correct month and\/or year.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m\/d\/Y",
+            "return_format": "Ymd",
+            "first_day": 0
+        },
+        {
+            "key": "field_5aec875e84ca7",
+            "label": "Death Date",
+            "name": "item_end_date",
+            "type": "date_picker",
+            "instructions": "Death date. If specific date unknown, enter the last day of the correct month and\/or year.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m\/d\/Y",
+            "return_format": "Ymd",
+            "first_day": 0
         }
     ],
     "location": [
@@ -75,5 +109,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1525448888
+    "modified": 1525451137
 }
