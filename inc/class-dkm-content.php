@@ -1,11 +1,26 @@
 <?php
+/**
+ * Adds content
+ *
+ * @package Digitalkm
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Adds content
+ *
+ * @package Digitalkm
+ */
 class DKM_Content extends DKM_Plugin {
-	function __construct() {
+	/**
+	 * Kick things off
+	 *
+	 * @private
+	 */
+	public function __construct() {
 
 		/** Content filters */
 		add_filter( 'the_content', array( $this, 'artifact_metadata' ), 5 );
@@ -20,17 +35,18 @@ class DKM_Content extends DKM_Plugin {
 
 	/**
 	 * Add metadata to content
-	 * @param  string $content HTML content
+	 *
+	 * @param  string $content HTML content.
 	 * @return string HTML content with metadata prepended
 	 */
-	function artifact_metadata( $content ) {
-		if ( is_singular( 'artifact' ) || is_post_type_archive( 'artifact' ) || is_tag() || is_category() || is_tax( array( 'category', 'post_tag', 'artifact_country', 'artifact_state', 'artifact_county', 'artifact_city', 'artifact_subject', ) ) ) {
+	public function artifact_metadata( string $content ) {
+		if ( is_singular( 'artifact' ) || is_post_type_archive( 'artifact' ) || is_tag() || is_category() || is_tax( array( 'category', 'post_tag', 'artifact_country', 'artifact_state', 'artifact_county', 'artifact_city', 'artifact_subject' ) ) ) {
 			ob_start();
-			include( 'metadata-artifact-top.php' );
+			include 'metadata-artifact-top.php';
 			$content = ob_get_clean() . $content;
 
 			ob_start();
-			include( 'metadata-artifact-bottom.php' );
+			include 'metadata-artifact-bottom.php';
 			$content .= ob_get_clean();
 		}
 
@@ -39,39 +55,35 @@ class DKM_Content extends DKM_Plugin {
 
 	/**
 	 * Save first gallery image to featured image
-	 * @param  integer int     $post_ID  WP post ID
-	 * @param  object  WP_Post $post WP_Post
-	 * @param  boolean bool    $update  Whether this is an existing post being updated or not
+	 *
+	 * @param  integer int $post_id  WP post ID.
 	 * @return boolean Whether post metadata was updated with thumbainl ID
 	 */
-	function artifact_thumbnail( int $post_ID ) {
-		$gallery_images = get_field( 'images', $post_ID, false );
+	public function artifact_thumbnail( int $post_id ) {
+		$gallery_images = get_field( 'images', $post_id, false );
 		if ( ! empty( $gallery_images ) ) {
-			update_post_meta( $post_ID, '_thumbnail_id', $gallery_images[0] );
+			return update_post_meta( $post_id, '_thumbnail_id', $gallery_images[0] );
 		}
 	}
 
 	/**
 	 * Add custom image sizes
 	 */
-	function custom_image_sizes() {
+	public function custom_image_sizes() {
 		add_image_size( 'timeline-thumbnail', 75, 75, true );
 	}
 
 	/**
 	 * Embed TimelineJS3 timeline
-	 * @param  array  $attributes Shortcode attributes
+	 *
 	 * @return string HTML content
 	 */
-	function timeline_shortcode( $attributes ) {
-		$shortcode_attributes = shortcode_atts( array (
-		), $attributes );
-
+	public function timeline_shortcode() {
 		$timeline_options = '{hash_bookmark: true}';
 
 		wp_enqueue_style( 'timeline-js3' );
 		wp_enqueue_script( 'timeline-js3' );
-		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( NULL, '/dkm/v1/timeline/' ) . '", ' . $timeline_options . ');' );
+		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( null, '/dkm/v1/timeline/' ) . '", ' . $timeline_options . ');' );
 
 		ob_start();
 		echo '<div id="timeline-embed"></div>';
