@@ -75,6 +75,7 @@ class DKM_Plugin {
 	 * Add CPTs, taxonomies, helpers, etc.
 	 */
 	public function includes() {
+		// Artifact CPT.
 		require $this->get_plugin_dir() . '/post-types/artifact.php';
 		require $this->get_plugin_dir() . '/taxonomies/artifact_country.php';
 		require $this->get_plugin_dir() . '/taxonomies/artifact_state.php';
@@ -82,10 +83,12 @@ class DKM_Plugin {
 		require $this->get_plugin_dir() . '/taxonomies/artifact_city.php';
 		require $this->get_plugin_dir() . '/taxonomies/artifact_subject.php';
 
+		// Mayor CPT.
+		require $this->get_plugin_dir() . '/post-types/mayor.php';
+
+		// Plugin files.
 		require $this->get_plugin_dir() . '/inc/class-dkm-content.php';
-
 		require $this->get_plugin_dir() . '/inc/class-dkm-helper.php';
-
 		require $this->get_plugin_dir() . '/inc/class-dkm-rest.php';
 
 		new DKM_Content();
@@ -119,7 +122,6 @@ class DKM_Plugin {
 	public function acf_json_save_point( $path ) {
 		return plugin_dir_path( __FILE__ ) . '/acf-json';
 	}
-
 
 	/**
 	 * Set ACF local JSON open directory
