@@ -1,0 +1,79 @@
+{
+    "key": "group_5aec7f2597c3b",
+    "title": "Mayoral Service Dates",
+    "fields": [
+        {
+            "key": "field_5aec7f2d7913e",
+            "label": "Service Dates",
+            "name": "mayoral_service_dates",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5aec7f3d7913f",
+                    "label": "Begin Date",
+                    "name": "begin_date",
+                    "type": "date_picker",
+                    "instructions": "Begin date. If specific date unknown, enter the first day of the correct month and\/or year.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "m\/d\/Y",
+                    "return_format": "Ymd",
+                    "first_day": 0
+                },
+                {
+                    "key": "field_5aec7f7b79140",
+                    "label": "End Date",
+                    "name": "end_date",
+                    "type": "date_picker",
+                    "instructions": "End date. If specific date unknown, enter the last day of the correct month and\/or year.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "display_format": "m\/d\/Y",
+                    "return_format": "Ymd",
+                    "first_day": 0
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "mayor"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1525448888
+}

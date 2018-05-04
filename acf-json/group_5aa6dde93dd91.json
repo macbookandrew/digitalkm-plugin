@@ -3,11 +3,33 @@
     "title": "Item Metadata",
     "fields": [
         {
+            "key": "field_5aa6df93cbbbb",
+            "label": "State",
+            "name": "state",
+            "type": "taxonomy",
+            "instructions": "Select all that apply",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "artifact_state",
+            "field_type": "checkbox",
+            "allow_null": 0,
+            "add_term": 1,
+            "save_terms": 1,
+            "load_terms": 1,
+            "return_format": "object",
+            "multiple": 0
+        },
+        {
             "key": "field_5aa945b3c13c8",
-            "label": "Images",
+            "label": "",
             "name": "images",
             "type": "gallery",
-            "instructions": "Don’t forget to add basic alt text (for accessibility) and a description (displayed publicly) in the media uploader.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -32,7 +54,7 @@
             "label": "Video URL",
             "name": "video_url",
             "type": "url",
-            "instructions": "Video to show instead of gallery images.",
+            "instructions": "W.A. Mauney (William Andrew Mauney)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -81,7 +103,7 @@
             "label": "Item End Date",
             "name": "item_end_date",
             "type": "date_picker",
-            "instructions": "Optional end date",
+            "instructions": "Optional end date. If specific date unknown, enter the last day of the correct month and\/or year.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -134,7 +156,7 @@
             "label": "Address Format",
             "name": "address_format",
             "type": "button_group",
-            "instructions": "Is this address before or after the major address change?",
+            "instructions": "W.A. Mauney (William Andrew Mauney)",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -188,28 +210,6 @@
                 "id": ""
             },
             "taxonomy": "artifact_county",
-            "field_type": "checkbox",
-            "allow_null": 0,
-            "add_term": 1,
-            "save_terms": 1,
-            "load_terms": 1,
-            "return_format": "object",
-            "multiple": 0
-        },
-        {
-            "key": "field_5aa6df93cbbbb",
-            "label": "State",
-            "name": "state",
-            "type": "taxonomy",
-            "instructions": "Select all that apply",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "taxonomy": "artifact_state",
             "field_type": "checkbox",
             "allow_null": 0,
             "add_term": 1,
@@ -438,5 +438,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1522854115
+    "modified": 1525448891
 }
