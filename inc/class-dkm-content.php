@@ -56,12 +56,12 @@ class DKM_Content extends DKM_Plugin {
 				$death_date = get_field( 'item_end_date' );
 
 				$dkm_helper = new DKM_Helper();
-				$lifetime = '<p class="meta">Born ' . $dkm_helper->format_date_range( $birth_date );
+				$lifetime   = '<p class="meta">Born ' . $dkm_helper->format_date_range( $birth_date );
 				if ( ! empty( $death_date ) ) {
 					$lifetime .= '; Died ' . $dkm_helper->format_date_range( $death_date );
 				}
 				$lifetime .= '</p>';
-				$content = $lifetime . $content;
+				$content   = $lifetime . $content;
 			}
 		}
 

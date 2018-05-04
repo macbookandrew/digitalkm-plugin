@@ -149,10 +149,10 @@ class DKM_Rest extends DKM_Plugin {
 
 					$service_dates = get_field( 'mayoral_service_dates' );
 					foreach ( $service_dates as $date ) {
-						$this_event['unique_id'] = $post->post_name . '-' . $date['begin_date'];
+						$this_event['unique_id']  = $post->post_name . '-' . $date['begin_date'];
 						$this_event['start_date'] = $this->format_date( $date['begin_date'] );
-						$this_event['end_date'] = $this->format_date( $date['end_date'] );
-						$results['events'][] = $this_event;
+						$this_event['end_date']   = $this->format_date( $date['end_date'] );
+						$results['events'][]      = $this_event;
 					}
 				}
 			}

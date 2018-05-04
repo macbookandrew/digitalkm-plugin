@@ -80,13 +80,15 @@ class DKM_Plugin {
 	 * Registers a new options page under Settings.
 	 */
 	public function add_options_page() {
-		return acf_add_options_page(array(
-			'page_title' 	=> 'DigitalKM Settings',
-			'menu_title' 	=> 'DigitalKM Settings',
-			'menu_slug' 	=> 'dkm-settings',
-			'capability' 	=> 'manage_options',
-			'redirect' 		=> false,
-		));
+		return acf_add_options_page(
+			array(
+				'page_title' => 'DigitalKM Settings',
+				'menu_title' => 'DigitalKM Settings',
+				'menu_slug'  => 'dkm-settings',
+				'capability' => 'manage_options',
+				'redirect'   => false,
+			)
+		);
 	}
 
 	/**
