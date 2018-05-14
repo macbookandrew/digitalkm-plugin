@@ -41,6 +41,10 @@ if ( ! empty( $images ) ) {
 	<?php
 	global $post;
 
+	if ( ! is_singular() && empty( $images ) && has_post_thumbnail() ) {
+		digitalkm_post_thumbnail();
+	}
+
 	if ( get_field( 'item_begin_date' ) ) {
 		$begin_date = get_field( 'item_begin_date' );
 		$end_date   = get_field( 'item_end_date' );
