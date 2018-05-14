@@ -50,7 +50,7 @@ class DKM_Content extends DKM_Plugin {
 			$content .= ob_get_clean();
 		}
 
-		if ( 'mayor' === get_post_type() ) {
+		if ( is_singular( 'mayor' ) ) {
 			$birth_date = get_field( 'item_begin_date' );
 			if ( ! empty( $birth_date ) ) {
 				$death_date = get_field( 'item_end_date' );
