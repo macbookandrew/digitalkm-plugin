@@ -73,6 +73,7 @@ class DKM_Plugin {
 		/** Tax queries */
 		add_action( 'pre_get_posts', array( $this, 'include_all_post_types' ) );
 
+		/** Options page */
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
 	}
 
