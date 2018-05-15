@@ -8,7 +8,13 @@
 $dkm_helper = new DKM_Helper();
 
 $images = get_field( 'images' );
-if ( ! empty( $images ) ) {
+$video  = get_field( 'video_url' );
+if ( ! empty( $video ) ) {
+	echo '<section id="images">
+	<h2>Video</h2>
+	' . do_shortcode( '[video src="' . esc_url( $video ) . '"]' ) . '
+	</section>'; // WPCS: XSS ok.
+} elseif ( ! empty( $images ) ) {
 	wp_enqueue_style( 'flickity' );
 	wp_enqueue_script( 'flickity' );
 
@@ -29,11 +35,6 @@ if ( ! empty( $images ) ) {
 	}
 
 	echo '</section>';
-} elseif ( ! empty( get_field( 'video_url' ) ) ) {
-	echo '<section id="images">
-	<h2>Video</h2>
-	' . wp_oembed_get( esc_url( get_field( 'video_url' ) ) ) . '
-	</section>'; // WPCS: XSS ok.
 }
 ?>
 
