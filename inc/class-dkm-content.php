@@ -30,9 +30,10 @@ class DKM_Content extends DKM_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'custom_image_sizes' ) );
 
 		/** Shortcodes */
+		add_shortcode( 'dkm_home_page', array( $this, 'homepage_shortcode' ) );
+		add_shortcode( 'dkm_mayor_wall', array( $this, 'mayor_shortcode' ) );
 		add_shortcode( 'dkm_storymap', array( $this, 'map_shortcode' ) );
 		add_shortcode( 'dkm_timeline', array( $this, 'timeline_shortcode' ) );
-		add_shortcode( 'dkm_mayor_wall', array( $this, 'mayor_shortcode' ) );
 	}
 
 	/**
@@ -77,6 +78,46 @@ class DKM_Content extends DKM_Plugin {
 		add_image_size( 'timeline-image-md', 300, 300 );
 		add_image_size( 'timeline-image-lg', 450, 450 );
 		add_image_size( 'timeline-image-xl', 600, 600 );
+	}
+
+	/**
+	 * Homepage collage
+	 *
+	 * @return string HTML content
+	 */
+	public function homepage_shortcode() {
+		ob_start();
+		echo '<section class="home-resource-container">';
+
+		$homepage_resources_args = array (
+			'post_type'      => get_post_types(),
+			'category_name'  => 'homepage',
+			'posts_per_page' => 6,
+		);
+
+		$homepage_resources = new WP_Query( $homepage_resources_args );
+
+		if ( $homepage_resources->have_posts() ) {
+			while ( $homepage_resources->have_posts() ) {
+				$homepage_resources->the_post();
+
+				echo '<article class="' . implode( ' ', get_post_class() ) . '">';
+				echo '<a href="' . esc_url( get_permalink() ) . '">';
+				the_post_thumbnail();
+				echo '</a>';
+				echo '<div class="content">';
+				the_title();
+				the_excerpt();
+				echo '<p><a class="button" href="' . esc_url( get_permalink() ) . '">Read more</a></p>';
+				echo '</div>';
+				echo '</article>';
+			}
+		}
+
+		wp_reset_query();
+
+		echo '</section>';
+		return ob_get_clean();
 	}
 
 	/**
