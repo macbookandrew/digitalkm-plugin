@@ -97,12 +97,12 @@ class DKM_Content extends DKM_Plugin {
 			)
 		);
 
-		foreach ( $mayors_posts as $mayor ) {
-			$dkm_helper = new DKM_Helper();
+		$dkm_helper = new DKM_Helper();
 
+		foreach ( $mayors_posts as $mayor ) {
 			$service_dates = get_field( 'mayoral_service_dates', $mayor->ID );
 			foreach ( $service_dates as $date ) {
-				$mayors[ $date['begin_date'] ] = array(
+				$mayors[ $date['begin_date'] . '-' . $mayor->ID ] = array(
 					'ID'        => $mayor->ID,
 					'permalink' => get_permalink( $mayor->ID ),
 					'thumbnail' => get_the_post_thumbnail( $mayor->ID, 'timeline-image-md', array( 'alt' => get_the_title( $mayor->ID ) ) ),
