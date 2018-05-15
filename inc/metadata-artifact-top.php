@@ -49,9 +49,11 @@ if ( ! empty( $images ) ) {
 		$begin_date = get_field( 'item_begin_date' );
 		$end_date   = get_field( 'item_end_date' );
 
-		echo '<section id="dates" class="meta">
-		<h2>Date</h2>
-		<p>' . esc_attr( $dkm_helper->format_date_range( $begin_date, $end_date ) ) . '</p>
+		echo '<section id="dates" class="meta">';
+		if ( 'artifact' === get_post_type() ) {
+			echo '<h2>Date</h2>';
+		}
+		echo '<p>' . esc_attr( $dkm_helper->format_date_range( $begin_date, $end_date ) ) . '</p>
 		<p><a href="' . esc_url( home_url() ) . '/timeline/#event-' . esc_url( $post->post_name ) . '" class="button">See on Timeline</a></p>
 		</section>';
 	}
@@ -108,4 +110,21 @@ if ( ! empty( $images ) ) {
 	<?php
 	if ( 'artifact' === get_post_type() && strlen( get_the_content() ) > 0 ) {
 		echo '<h2 id="description">Description</h2>';
+	}
+
+	if ( 'mayor' === get_post_type() ) {
+		$service_dates = get_field( 'mayoral_service_dates' );
+		if ( ! empty( $service_dates ) ) {
+
+			foreach ( $service_dates as $date ) {
+				$dates[] = $dkm_helper->format_date_range( $date['begin_date'], $date['end_date'] );
+			}
+
+			echo '<p>Served as mayor: ';
+			if ( count( $dates ) > 1 ) {
+				echo '</p><ul><li>' . wp_kses_post( implode( '</li><li>', $dates ) ) . '</li></ul>';
+			} else {
+				echo esc_attr( $dates[0] ) . '</p>';
+			}
+		}
 	}
