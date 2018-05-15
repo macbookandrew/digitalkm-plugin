@@ -89,7 +89,7 @@ class DKM_Content extends DKM_Plugin {
 		ob_start();
 		echo '<section class="home-resource-container">';
 
-		$homepage_resources_args = array (
+		$homepage_resources_args = array(
 			'post_type'      => get_post_types(),
 			'category_name'  => 'homepage',
 			'posts_per_page' => 6,
@@ -101,7 +101,7 @@ class DKM_Content extends DKM_Plugin {
 			while ( $homepage_resources->have_posts() ) {
 				$homepage_resources->the_post();
 
-				echo '<article class="' . implode( ' ', get_post_class() ) . '">';
+				echo '<article class="' . esc_attr( implode( ' ', get_post_class() ) ) . '">';
 				echo '<a href="' . esc_url( get_permalink() ) . '">';
 				the_post_thumbnail();
 				echo '</a>';
@@ -114,7 +114,7 @@ class DKM_Content extends DKM_Plugin {
 			}
 		}
 
-		wp_reset_query();
+		wp_reset_postdata();
 
 		echo '</section>';
 		return ob_get_clean();
