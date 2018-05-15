@@ -41,7 +41,7 @@ if ( ! empty( $images ) ) {
 	<?php
 	global $post;
 
-	if ( is_singular() && empty( $images ) && has_post_thumbnail() ) {
+	if ( empty( $images ) && has_post_thumbnail() ) {
 		digitalkm_post_thumbnail();
 	}
 
