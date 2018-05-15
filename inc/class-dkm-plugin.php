@@ -75,6 +75,9 @@ class DKM_Plugin {
 
 		/** Options page */
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+
+		/** Misc */
+		add_filter( 'upload_mimes', array( $this, 'mime_types' ) );
 	}
 
 	/**
@@ -170,4 +173,16 @@ class DKM_Plugin {
 		$paths[] = $this->get_plugin_dir() . '/acf-json';
 		return $paths;
 	}
+
+	/**
+	 * Allow SVG file uploads
+	 *
+	 * @param  array $mime_types Array of allowed mime types.
+	 * @return array modified array
+	 */
+	public function mime_types( $mime_types ) {
+		$mime_types['svg'] = 'image/svg+xml';
+		return $mime_types;
+	}
+
 }
