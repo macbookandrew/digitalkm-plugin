@@ -31,6 +31,7 @@ class DKM_Content extends DKM_Plugin {
 
 		/** Shortcodes */
 		add_shortcode( 'dkm_timeline', array( $this, 'timeline_shortcode' ) );
+		add_shortcode( 'dkm_mayor_wall', array( $this, 'mayor_shortcode' ) );
 	}
 
 	/**
@@ -90,6 +91,58 @@ class DKM_Content extends DKM_Plugin {
 		add_image_size( 'timeline-image-md', 300, 300 );
 		add_image_size( 'timeline-image-lg', 450, 450 );
 		add_image_size( 'timeline-image-xl', 600, 600 );
+	}
+
+	/**
+	 * Display all mayors
+	 *
+	 * @return string HTML content
+	 */
+	public function mayor_shortcode() {
+		ob_start();
+
+		$mayors       = array();
+		$mayors_posts = get_posts(
+			array(
+				'post_type'      => 'mayor',
+				'posts_per_page' => -1,
+				'orderby'        => 'meta_value',
+				'order'          => 'ASC',
+				'meta_key'       => 'item_begin_date',
+			)
+		);
+
+		foreach ( $mayors_posts as $mayor ) {
+			$dkm_helper = new DKM_Helper();
+
+			$service_dates = get_field( 'mayoral_service_dates', $mayor->ID );
+			foreach ( $service_dates as $date ) {
+				$mayors[ $date['begin_date'] ] = array(
+					'ID'        => $mayor->ID,
+					'permalink' => get_permalink( $mayor->ID ),
+					'thumbnail' => get_the_post_thumbnail( $mayor->ID, 'timeline-image-md', array( 'alt' => get_the_title( $mayor->ID ) ) ),
+					'title'     => get_the_title( $mayor->ID ),
+					'dates'     => $dkm_helper->format_date_range( $date['begin_date'], $date['end_date'] ),
+				);
+			}
+		}
+
+		ksort( $mayors );
+
+		if ( ! empty( $mayors ) ) {
+			echo '<section class="mayor-wall shortcode">';
+			foreach ( $mayors as $mayor ) {
+				echo '<article class="post-id-' . esc_attr( $mayor['ID'] ) . ' mayor type-mayor status-publish hentry">
+				<a href="' . esc_url( $mayor['permalink'] ) . '">' . wp_kses_post( $mayor['thumbnail'] ) . '</a>
+				<h2><a href="' . esc_url( $mayor['permalink'] ) . '">' . esc_attr( $mayor['title'] ) . '</a></h2>
+				<p class="meta">Served ' . esc_attr( $mayor['dates'] ) . '</p>
+				<p><a class="button" href="' . esc_url( $mayor['permalink'] ) . '">Read More</a></p>
+				</article>';
+			}
+			echo '</section>';
+		}
+
+		return ob_get_clean();
 	}
 
 	/**
