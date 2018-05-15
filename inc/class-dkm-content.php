@@ -148,14 +148,21 @@ class DKM_Content extends DKM_Plugin {
 	/**
 	 * Embed TimelineJS3 timeline
 	 *
+	 * @param  array $attributes Shortcode attributes.
 	 * @return string HTML content
 	 */
-	public function timeline_shortcode() {
+	public function timeline_shortcode( $attributes ) {
+		$shortcode_attributes = shortcode_atts(
+			array(
+				'rest_suffix' => '',
+			), $attributes
+		);
+
 		$timeline_options = '{hash_bookmark: true}';
 
 		wp_enqueue_style( 'timeline-js3' );
 		wp_enqueue_script( 'timeline-js3' );
-		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( null, '/dkm/v1/timeline/' ) . '", ' . $timeline_options . ');' );
+		wp_add_inline_script( 'timeline-js3', 'var timeline = new TL.Timeline("timeline-embed", "' . get_rest_url( null, '/dkm/v1/timeline/' . esc_attr( $shortcode_attributes['rest_suffix'] ) ) . '", ' . $timeline_options . ');' );
 
 		ob_start();
 		echo '<div id="timeline-embed"></div>';

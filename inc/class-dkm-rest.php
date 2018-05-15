@@ -29,7 +29,15 @@ class DKM_Rest extends DKM_Plugin {
 		register_rest_route(
 			'dkm/v1', '/timeline/(?P<id>\d+)', array(
 				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_one_artifact' ),
+				'callback' => array( $this, 'get_one_item' ),
+			)
+		);
+
+		// Handle CPT items.
+		register_rest_route(
+			'dkm/v1', '/timeline/post-type/(?P<cpt>[a-zA-Z]+)', array(
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_cpt_items' ),
 			)
 		);
 
@@ -37,7 +45,7 @@ class DKM_Rest extends DKM_Plugin {
 		register_rest_route(
 			'dkm/v1', '/timeline/', array(
 				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_all_artifacts' ),
+				'callback' => array( $this, 'get_all_items' ),
 			)
 		);
 
@@ -66,11 +74,12 @@ class DKM_Rest extends DKM_Plugin {
 	 */
 	private function get_query_args( $extra_args = array() ) {
 		$defaults = array(
-			'post_type'  => array( 'artifact', 'mayor' ),
-			'order'      => 'ASC',
-			'orderby'    => 'meta_value_num',
-			'meta_key'   => 'item_begin_date',
-			'meta_query' => array(
+			'post_type'      => array( 'artifact', 'mayor' ),
+			'posts_per_page' => -1,
+			'order'          => 'ASC',
+			'orderby'        => 'meta_value_num',
+			'meta_key'       => 'item_begin_date',
+			'meta_query'     => array(
 				'relation' => 'OR',
 				array(
 					'key'     => 'item_begin_date',
@@ -167,8 +176,8 @@ class DKM_Rest extends DKM_Plugin {
 	 * @param  object WP_REST_Request $request Request from client.
 	 * @return string JSON data
 	 */
-	public function get_all_artifacts( WP_REST_Request $request ) {
-		$query_args = $this->get_query_args( array( 'posts_per_page' => -1 ) );
+	public function get_all_items( WP_REST_Request $request ) {
+		$query_args = $this->get_query_args();
 		return $this->get_timeline_data( $query_args );
 	}
 
@@ -178,8 +187,19 @@ class DKM_Rest extends DKM_Plugin {
 	 * @param  object WP_REST_Request $request Request from client.
 	 * @return string JSON data
 	 */
-	public function get_one_artifact( WP_REST_Request $request ) {
+	public function get_one_item( WP_REST_Request $request ) {
 		$query_args = $this->get_query_args( array( 'post_id' => $request['id'] ) );
+		return $this->get_timeline_data( $query_args );
+	}
+
+	/**
+	 * Get timeline data for a specific CPT
+	 *
+	 * @param  object WP_REST_Request $request Request from client.
+	 * @return string JSON data
+	 */
+	public function get_cpt_items( WP_REST_Request $request ) {
+		$query_args = $this->get_query_args( array( 'post_type' => esc_attr( $request['cpt'] ) ) );
 		return $this->get_timeline_data( $query_args );
 	}
 
