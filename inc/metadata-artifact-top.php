@@ -41,7 +41,7 @@ if ( ! empty( $images ) ) {
 	<?php
 	global $post;
 
-	if ( ! is_singular() && empty( $images ) && has_post_thumbnail() ) {
+	if ( is_singular() && empty( $images ) && has_post_thumbnail() ) {
 		digitalkm_post_thumbnail();
 	}
 
@@ -106,6 +106,6 @@ if ( ! empty( $images ) ) {
 
 <main class="content">
 	<?php
-	if ( strlen( get_the_content() ) > 0 ) {
+	if ( 'artifact' === get_post_type() && strlen( get_the_content() ) > 0 ) {
 		echo '<h2 id="description">Description</h2>';
 	}
