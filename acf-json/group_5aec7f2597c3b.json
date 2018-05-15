@@ -26,7 +26,7 @@
                     "label": "Begin Date",
                     "name": "begin_date",
                     "type": "date_picker",
-                    "instructions": "Begin date. If specific date unknown, enter the first day of the correct month and\/or year.",
+                    "instructions": "Begin date. If specific date unknown, enter December 1 of the correct year.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -43,7 +43,7 @@
                     "label": "End Date",
                     "name": "end_date",
                     "type": "date_picker",
-                    "instructions": "End date. If specific date unknown, enter the last day of the correct month and\/or year.",
+                    "instructions": "End date. If specific date unknown, enter November 30 of the correct year.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -109,5 +109,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1525451137
+    "modified": 1526396461
 }
