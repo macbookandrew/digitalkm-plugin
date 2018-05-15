@@ -135,6 +135,10 @@ class DKM_Plugin {
 		/** TimelineJS3 */
 		wp_register_style( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/css/timeline.css', array(), $this->timeline_version );
 		wp_register_script( 'timeline-js3', $this->get_plugin_dir_url() . 'vendor/timeline/compiled/js/timeline-min.js', array(), $this->timeline_version, true );
+
+		/** StoryMap */
+		wp_register_style( 'storymap', 'https://cdn.knightlab.com/libs/storymapjs/latest/css/storymap.css' );
+		wp_register_script( 'storymap', 'https://cdn.knightlab.com/libs/storymapjs/latest/js/storymap-min.js' );
 	}
 
 	/**

@@ -30,6 +30,7 @@ class DKM_Content extends DKM_Plugin {
 		add_action( 'after_setup_theme', array( $this, 'custom_image_sizes' ) );
 
 		/** Shortcodes */
+		add_shortcode( 'dkm_storymap', array( $this, 'map_shortcode' ) );
 		add_shortcode( 'dkm_timeline', array( $this, 'timeline_shortcode' ) );
 		add_shortcode( 'dkm_mayor_wall', array( $this, 'mayor_shortcode' ) );
 	}
@@ -78,6 +79,27 @@ class DKM_Content extends DKM_Plugin {
 		add_image_size( 'timeline-image-xl', 600, 600 );
 	}
 
+	/**
+	 * Embed StoryMap
+	 *
+	 * @param  array $attributes Shortcode attributes.
+	 * @return string HTML content
+	 */
+	public function map_shortcode( $attributes ) {
+		$shortcode_attributes = shortcode_atts(
+			array(
+				'rest_suffix' => '',
+			), $attributes
+		);
+
+		wp_enqueue_style( 'storymap' );
+		wp_enqueue_script( 'storymap' );
+		wp_add_inline_script( 'storymap', 'var storymap = new VCO.StoryMap("storymap-embed", "' . get_rest_url( null, '/dkm/v1/storymap/' . esc_attr( $shortcode_attributes['rest_suffix'] ) ) . '");' );
+
+		ob_start();
+		echo '<div id="storymap-embed"></div>';
+		return ob_get_clean();
+	}
 	/**
 	 * Display all mayors
 	 *
