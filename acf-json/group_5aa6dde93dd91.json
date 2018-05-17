@@ -7,7 +7,7 @@
             "label": "Images",
             "name": "images",
             "type": "gallery",
-            "instructions": "Don’t forget to add basic alt text (for accessibility) and a description (displayed publicly) in the media uploader.",
+            "instructions": "Don’t forget to add basic alt text (for accessibility) and a description (displayed publicly) in the media uploader.\r\nBy default, the first image here will become the featured image. To manually override, scroll down and look on the right for “Featured Image” and edit as necessary.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -433,10 +433,9 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "custom_fields",
-        "featured_image"
+        "custom_fields"
     ],
     "active": 1,
     "description": "",
-    "modified": 1526398566
+    "modified": 1526570459
 }

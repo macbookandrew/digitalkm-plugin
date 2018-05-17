@@ -63,9 +63,12 @@ class DKM_Content extends DKM_Plugin {
 	 * @return boolean Whether post metadata was updated with thumbainl ID
 	 */
 	public function artifact_thumbnail( int $post_id ) {
-		$gallery_images = get_field( 'images', $post_id, false );
-		if ( ! empty( $gallery_images ) ) {
-			return update_post_meta( $post_id, '_thumbnail_id', $gallery_images[0] );
+		$current_featured_image = get_post_meta( $post_id, '_thumbnail_id', true );
+		if ( ! isset( $current_featured_image ) || empty( $current_featured_image ) ) {
+			$gallery_images = get_field( 'images', $post_id, false );
+			if ( ! empty( $gallery_images ) ) {
+				return update_post_meta( $post_id, '_thumbnail_id', $gallery_images[0] );
+			}
 		}
 	}
 
