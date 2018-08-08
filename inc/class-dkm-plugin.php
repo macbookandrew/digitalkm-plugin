@@ -15,7 +15,7 @@ class DKM_Plugin {
 	 * Plugin version
 	 */
 	public function version() {
-		return '1.0.0';
+		return '1.0.1';
 	}
 
 	/**

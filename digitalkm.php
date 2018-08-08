@@ -7,7 +7,7 @@
  * Author URI:      https://andrewrminion.com
  * Text Domain:     digitalkm
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.0.1
  *
  * @package         Digitalkm
  */
