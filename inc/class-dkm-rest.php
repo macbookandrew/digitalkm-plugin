@@ -91,11 +91,13 @@ class DKM_Rest extends DKM_Plugin {
 				'relation' => 'OR',
 				array(
 					'key'     => 'item_begin_date',
-					'compare' => 'EXISTS',
+					'compare' => '!=',
+					'value'   => '',
 				),
 				array(
 					'key'     => 'item_end_date',
-					'compare' => 'EXISTS',
+					'compare' => '!=',
+					'value'   => '',
 				),
 				array(
 					'key'     => 'mayoral_service_dates',
